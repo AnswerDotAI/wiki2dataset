@@ -1,0 +1,40 @@
+[package]
+name = "wiki2dataset"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "Apache-2.0"
+description = "Fast Wikipedia-to-dataset conversion and chunking"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[profile.play]
+inherits = "release"
+lto = false
+incremental = true
+codegen-units = 16
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+fbz = ">=0.1.7"
+mdhtml = { package = "mdhtml-crate", version = ">=0.1.36", default-features = false }
+pyo3 = { version = ">=0.28", optional = true }
+quick-xml = "0.38"
+rayon = "1"
+rusqlite = "0.37"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+
+[features]
+python = ["dep:pyo3"]
+extension-module = ["python", "pyo3/extension-module"]
+
+[dev-dependencies]
+flate2 = "1"

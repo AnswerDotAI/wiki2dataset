@@ -1,0 +1,40 @@
+[build-system]
+requires = ["maturin>=1,<2"]
+build-backend = "maturin"
+
+[project]
+name = "wiki2dataset"
+dynamic = ["version"]
+description = "Fast Wikipedia-to-dataset conversion and chunking"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+readme = "README.md"
+authors = [{name = "Jeremy Howard", email = "github@jhoward.fastmail.fm"}]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = ["fastcore>=2.2.15"]
+
+[project.optional-dependencies]
+hf = ["pyarrow", "huggingface_hub>=1.28.0"]
+dev = ["fastship>=0.0.11", "maturin>=1,<2", "pytest", "pytest-timeout"]
+
+[project.urls]
+Homepage = "https://github.com/AnswerDotAI/wiki2dataset"
+Repository = "https://github.com/AnswerDotAI/wiki2dataset"
+Issues = "https://github.com/AnswerDotAI/wiki2dataset/issues"
+
+[tool.maturin]
+features = ["extension-module"]
+python-source = "python"
+module-name = "wiki2dataset._core"
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "src/**/*.rs" }, { file = "Cargo.toml" }, { file = "Cargo.lock" }]
+
+[tool.fastship]
+branch = "main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,9 @@
+.git
+.github
+.pytest_cache
+__pycache__
+data
+meta
+target
+tests
+*.so
