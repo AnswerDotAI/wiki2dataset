@@ -23,7 +23,7 @@ codegen-units = 16
 anyhow = "1"
 clap = { version = "4", features = ["derive"] }
 fbz = ">=0.1.7"
-mdhtml = { package = "mdhtml-crate", version = ">=0.1.36", default-features = false }
+mdhtml = { package = "mdhtml-crate", version = ">=0.1.43", default-features = false }
 pyo3 = { version = ">=0.28", optional = true }
 quick-xml = "0.38"
 rayon = "1"
@@ -38,3 +38,6 @@ extension-module = ["python", "pyo3/extension-module"]
 
 [dev-dependencies]
 flate2 = "1"
+
+[build-dependencies]
+pyo3-build-config = ">=0.14.2"

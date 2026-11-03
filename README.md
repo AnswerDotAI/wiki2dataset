@@ -36,11 +36,11 @@ Template/category metadata comes directly from Wikimedia Enterprise's Template a
 ```bash
 python -m scripts.wiki_db auth
 python -m scripts.wiki_db acquire --wiki enwiki
-python -m scripts.wiki_db refresh --wiki enwiki --page_props page_props.sql
+python -m scripts.wiki_db refresh --wiki enwiki --page-props page_props.sql
 python -m scripts.wiki_db roles --wiki enwiki
 ```
 
-`acquire` freezes and downloads the latest completed Wikimedia article and `page_props` dumps plus matching Template and Category snapshots. Downloads are resumable and verified against their published checksums. `refresh` downloads the two Enterprise namespaces to `data/{wiki}` by default, then builds `{wiki}-templates.sqlite` there. Pass `--snapshot_dir` to use another directory or `--workers` to change concurrency. `download` only fetches the Enterprise chunks; `build` rebuilds SQLite from the completed manifests, while `roles` quickly rematerializes cleanup policy from an existing database. Duplicate snapshot records are resolved by highest revision identifier. The SQLite file contains canonical pages, inbound redirects, category edges, source licences, build metadata, source versions, and disambiguation page IDs. The compressed `page_props` dump is scanned once while building metadata rather than during every dataset run; `wiki_db page_props` refreshes only that table.
+`acquire` freezes and downloads the latest completed Wikimedia article and `page_props` dumps plus matching Template and Category snapshots. Downloads are resumable and verified against their published checksums. `refresh` downloads the two Enterprise namespaces to `data/{wiki}` by default, then builds `{wiki}-templates.sqlite` there. Pass `--snapshot-dir` to use another directory or `--workers` to change concurrency. `download` only fetches the Enterprise chunks; `build` rebuilds SQLite from the completed manifests, while `roles` quickly rematerializes cleanup policy from an existing database. Duplicate snapshot records are resolved by highest revision identifier. The SQLite file contains canonical pages, inbound redirects, category edges, source licences, build metadata, source versions, and disambiguation page IDs. The compressed `page_props` dump is scanned once while building metadata rather than during every dataset run; `wiki_db page_props` refreshes only that table.
 
 `TemplateDB` provides redirect-aware template source, categories, bounded ancestor categories, semantic roles, and wrapper information. `inspect()` also reports plausible name/category rules with their affected-template count and representative members, so role decisions include their blast radius. Role policy is declarative. It uses direct categories and explicitly configured one-parent ancestry rather than recursively traversing Wikipedia's cyclic organizational graph; templates whose transcluded body wraps a sidebar, infobox, or navigation template inherit that role:
 
@@ -69,7 +69,7 @@ With the conventional `data/{wiki}` layout, the CLI discovers the pages XML and 
 
 ```bash
 python -m scripts.wiki2dataset hf-build --wiki enwiki --threads 12
-python -m scripts.wiki2dataset hf-package --wiki enwiki --dump_date 20260801
+python -m scripts.wiki2dataset hf-package --wiki enwiki --dump-date 20260801
 ```
 
 `--path` changes the data root. Individual path arguments remain available as overrides.
